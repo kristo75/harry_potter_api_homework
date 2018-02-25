@@ -5,10 +5,7 @@ const app = function () {
 
   makeRequest(url, requestComplete);
 
-  document.addEventListener('load', function() {
-    let dataArray = genderList(genders);
-    new PieChart();
-});
+
 }
 
 const makeRequest = function(url, callback){
@@ -24,6 +21,7 @@ const requestComplete = function(){
   const characters = JSON.parse(jsonString);
   populateList(characters);
   populateDropdown(characters);
+
 };
 
 const handleSelectChanged = function(characters, index){
@@ -36,12 +34,11 @@ const setPtags = function(characters, index){
   const pTag2 = document.querySelector('#species-select-result');
   pTag2.innerText = "I am a " + characters[index].gender + " " + characters[index].species;
   const pTag3 = document.querySelector('#house-select-result');
-  pTag3.innerText = "and I belong to the " + characters[index].house + " house";
+  pTag3.innerText = "and I belong to the " + characters[index].house + " house at Hogwarts";
+  const pTag4 = document.querySelector('#year-of-birth-select-result');
+  pTag4.innerText = "I was born in the year of " + characters[index].yearOfBirth + " and I am of " + characters[index].ancestry + "  ancestry."
   // const pTag4 = doucment.querySelector('#image-select-result');
   // pTag4.innerText = characters[index].character.image;
-
-  // const pTag4 = document.querySelector('#ingredients-select-result');
-  // pTag4.innerText = name[index].ingredients.malt.name;
 };
 
 const populateDropdown = function(characters){
@@ -51,6 +48,7 @@ const populateDropdown = function(characters){
     option.innerText = character.name;
     option.value = index;
     select.appendChild(option);
+    
   });
   select.addEventListener("change", function(){
     handleSelectChanged(characters, this.value)
@@ -59,36 +57,7 @@ const populateDropdown = function(characters){
 
 // CREATE LIST ITEM FROM LAB SOLUTION
 
-const genderList = function(genders){
-  newArray = []
-  genders.forEach(function(gender){
-    newArray.push(gender.characters);
-  })
-  console.log(newArray);
 
-  let maleCount = 0;
-  let femaleCount = 0;
-
-
-  newArray.forEach(function(area){
-    if (gender === "male") {
-      africaCount += 1;
-    } else if (area === "female") {
-      asiaCount += 1;
-
-    } else if (area === "") {
-      noneCount += 1;
-    }
-    dataArray = [];
-    dataArray.push(maleCount);
-    dataArray.push(femaleCount);
-    dataArray.push(noneCount);
-    })
-    console.log(dataArray);
-    let gender = ["male", "female", "None"];
-
-    new ColumnChart("Characters by Gender", "Gender", dataArray, gender);
-};
 
   const populateList = function(characters){
   const dl = document.getElementById("character-list");
@@ -100,7 +69,40 @@ const genderList = function(genders){
     image.width = '200';
     dl.appendChild(dt);
     dl.appendChild(image);
-  });
+  })
+
+  document.addEventListener('load', function() {
+    let dataArray = genderList(genders);
+    new ColumnChart();
+});
+
+  const genderList = function(genders){
+    newArray = []
+    genders.forEach(function(gender){
+      newArray.push(character.genders);
+    })
+    console.log(newArray);
+
+    let maleCount = 0;
+    let femaleCount = 0;
+
+
+
+    newArray.forEach(function(gender){
+      if (gender === "male") {
+        maleCount += 1;
+      } else if (gender === "female") {
+        femaleCount += 1;
+      }
+      dataArray = [];
+      dataArray.push(maleCount);
+      dataArray.push(femaleCount);
+      })
+      // console.log(dataArray);
+      let gender = ["male", "female"];
+
+      new ColumnChart("Characters by Gender", "Gender", dataArray, gender);
+  };
 };
 
 

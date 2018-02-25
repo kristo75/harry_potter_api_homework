@@ -20,13 +20,14 @@ h2 {
   font-family: 'Henny Penny';
   font-size: 16px;
 }
+p {
+  font-family: 'Henny Penny';
+  font-size: 12px;
+  color: black;
 
-/* #character-list{
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  text-align: center;
-} */
+}
+
+
 
 .name-selector {
   background-color: rgb(71, 77, 102);
