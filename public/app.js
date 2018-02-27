@@ -21,8 +21,45 @@ const requestComplete = function(){
   const characters = JSON.parse(jsonString);
   populateList(characters);
   populateDropdown(characters);
+  createChart(characters);
 
 };
+
+const createChart = function (characters) {
+
+  const genderArray = getGenders(characters);
+  const genderCountArray = genderCount(genderArray);
+  const categories = ['male', 'female'];
+    new ColumnChart("Characters by Gender", "Gender", genderCountArray, categories);
+  console.log(genderCountArray);
+
+}
+
+const genderCount = function (genderArray) {
+  let maleCount = 0;
+  let femaleCount = 0;
+  const genderCountArray = [];
+  genderArray.forEach(function(gender){
+            if (gender === "male") {
+              maleCount += 1;
+            } else if (gender === "female") {
+              femaleCount += 1;
+            }
+            // genderCountArray.push(maleCount);
+            // genderCountArray.push(femaleCount);
+            })
+    genderCountArray.push(maleCount);
+  genderCountArray.push(femaleCount);
+    return genderCountArray;
+}
+
+const getGenders = function (characters) {
+  const genderArray = [];
+  characters.forEach(function (character) {
+      genderArray.push(character.gender);
+    })
+    return genderArray;
+}
 
 const handleSelectChanged = function(characters, index){
   setPtags(characters, index);
@@ -48,7 +85,7 @@ const populateDropdown = function(characters){
     option.innerText = character.name;
     option.value = index;
     select.appendChild(option);
-    
+
   });
   select.addEventListener("change", function(){
     handleSelectChanged(characters, this.value)
@@ -71,38 +108,40 @@ const populateDropdown = function(characters){
     dl.appendChild(image);
   })
 
-  document.addEventListener('load', function() {
-    let dataArray = genderList(genders);
-    new ColumnChart();
-});
 
-  const genderList = function(genders){
-    newArray = []
-    genders.forEach(function(gender){
-      newArray.push(character.genders);
-    })
-    console.log(newArray);
-
-    let maleCount = 0;
-    let femaleCount = 0;
-
-
-
-    newArray.forEach(function(gender){
-      if (gender === "male") {
-        maleCount += 1;
-      } else if (gender === "female") {
-        femaleCount += 1;
-      }
-      dataArray = [];
-      dataArray.push(maleCount);
-      dataArray.push(femaleCount);
-      })
-      // console.log(dataArray);
-      let gender = ["male", "female"];
-
-      new ColumnChart("Characters by Gender", "Gender", dataArray, gender);
-  };
+  //   console.log(genders);
+  //   let dataArray = genderList(genders);
+  //     // title_text, name, data, categories
+  //   new ColumnChart('Character by gender', 'gender',);
+  //
+  //
+  // const genderList = function(genders){
+  //   newArray = []
+  //   genders.forEach(function(gender){
+  //     newArray.push(character.genders);
+  //   })
+  //   console.log(newArray);
+  //
+  //   let maleCount = 0;
+  //   let femaleCount = 0;
+  //
+  //
+  //
+  //   newArray.forEach(function(gender){
+  //     if (gender === "male") {
+  //       maleCount += 1;
+  //     } else if (gender === "female") {
+  //       femaleCount += 1;
+  //     }
+  //     dataArray = [];
+  //     dataArray.push(maleCount);
+  //     dataArray.push(femaleCount);
+  //     })
+  //     // console.log(dataArray);
+  //     let gender = ["male", "female"];
+  //
+  //     new ColumnChart("Characters by Gender", "Gender", dataArray, gender);
+  // };
 };
 
 
